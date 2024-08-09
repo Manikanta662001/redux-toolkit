@@ -5,15 +5,19 @@ import { fetchUsers } from "../store/slices/apiSlice";
 function Apicall() {
   const dispatch = useDispatch();
   const state = useSelector((state) => console.log(state));
-  const users = useSelector((state) => state.apiReducer.users);
+  const { users, error } = useSelector((state) => state.apiReducer);
   return (
     <div>
       <button onClick={() => dispatch(fetchUsers())}>Api Call</button>
-      <ul>
-        {users?.map((user) => {
-          return <li key={user.id}>{user.name}</li>;
-        })}
-      </ul>
+      {error ? (
+        <p>{error}</p>
+      ) : (
+        <ul>
+          {users?.map((user) => {
+            return <li key={user.id}>{user.name}</li>;
+          })}
+        </ul>
+      )}
     </div>
   );
 }

@@ -6,15 +6,21 @@ const initialState = {
   error: "",
   count: 0,
 };
-const fetchUsersData = async () => {
-  const apiRes = await fetch("https://jsonplaceholder.typicode.com/users");
-  const result = await apiRes.json();
-  return result;
-};
-const fetchUsers = createAsyncThunk("fetchUsers", async () => {
-  const result = await fetchUsersData();
-  return result;
-});
+const fetchUsers = createAsyncThunk(
+  "fetchUsers",
+  async (_, { rejectWithValue }) => {
+    try {
+      const apiRes = await fetch("https://jsonplaceholder.typicode.com/users");
+      if (!apiRes.ok) {
+        throw new Error("There is some Error While Fetching");
+      }
+      const result = await apiRes.json();
+      return result;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 const apiSlice = createSlice({
   name: "api",
   initialState,
@@ -42,14 +48,13 @@ const apiSlice = createSlice({
   },
 });
 
-
-export const incrementAsync = (dispatch)=>{
-    return (dispatch)=>{
-        setTimeout(()=>{
-            dispatch(increment())
-        },2000)
-    }
-}
+export const incrementAsync = (dispatch) => {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(increment());
+    }, 2000);
+  };
+};
 
 export default apiSlice.reducer;
 export const { increment, decrement, reset } = apiSlice.actions;
