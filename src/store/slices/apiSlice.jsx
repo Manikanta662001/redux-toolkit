@@ -4,7 +4,6 @@ const initialState = {
   users: [],
   isLoading: false,
   error: "",
-  count: 0,
 };
 const fetchUsers = createAsyncThunk(
   "fetchUsers",
@@ -24,17 +23,7 @@ const fetchUsers = createAsyncThunk(
 const apiSlice = createSlice({
   name: "api",
   initialState,
-  reducers: {
-    increment: (state) => {
-      return { ...state, count: state.count + 1 };
-    },
-    decrement: (state) => {
-      return { ...state, count: state.count - 1 };
-    },
-    reset: (state) => {
-      return { ...state, count: state.count - state.count };
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.pending, (state) => {
       return { ...state, isLoading: true };
@@ -48,14 +37,5 @@ const apiSlice = createSlice({
   },
 });
 
-export const incrementAsync = (dispatch) => {
-  return (dispatch) => {
-    setTimeout(() => {
-      dispatch(increment());
-    }, 2000);
-  };
-};
-
 export default apiSlice.reducer;
-export const { increment, decrement, reset } = apiSlice.actions;
 export { fetchUsers };
