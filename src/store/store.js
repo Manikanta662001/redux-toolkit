@@ -21,6 +21,7 @@ const rootResetReducer = (state, action) => {
 const persistConfig = {
   key: "root",
   storage,
+  whitelist: ["counterReducer"], //to keep counter not to reset
 };
 
 // Wrap the rootResetReducer with persistReducer
