@@ -12,7 +12,10 @@ const rootReducer = combineReducers({
 // Create a root reducer that resets the state when a RESET action is dispatched
 const rootResetReducer = (state, action) => {
   if (action.type === "RESET") {
-    state = undefined; // Reset the entire state
+    return {
+      ...state,
+      apiReducer: undefined, // Reset this part of the state
+    };
   }
   return rootReducer(state, action);
 };
@@ -29,7 +32,19 @@ const persistedReducer = persistReducer(persistConfig, rootResetReducer);
 // Create the Redux store with the persisted reducer
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [
+          "persist/PERSIST",
+          "persist/REHYDRATE",
+          "persist/PAUSE",
+          "persist/PURGE",
+          "persist/FLUSH",
+          "persist/REGISTER",
+        ],
+      },
+    }),
   devTools: process.env.NODE_ENV !== "production",
 });
 export const persistor = persistStore(store);
