@@ -7,7 +7,8 @@ const initialState = {
 };
 const fetchUsers = createAsyncThunk(
   "fetchUsers",
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, getState }) => {
+    console.log('GET:::',getState())
     try {
       const apiRes = await fetch("https://jsonplaceholder.typicode.com/users");
       if (!apiRes.ok) {

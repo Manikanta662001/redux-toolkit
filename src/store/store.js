@@ -14,6 +14,7 @@ const rootResetReducer = (state, action) => {
   if (action.type === "RESET") {
     return {
       ...state,
+      counterReducer:undefined,
       apiReducer: undefined, // Reset this part of the state
     };
   }
