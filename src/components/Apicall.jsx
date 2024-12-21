@@ -4,7 +4,6 @@ import { fetchUsers } from "../store/slices/apiSlice";
 
 function Apicall() {
   const dispatch = useDispatch();
-  const state = useSelector((state) => console.log(state));
   const { users, error } = useSelector((state) => state.apiReducer);
   return (
     <div>

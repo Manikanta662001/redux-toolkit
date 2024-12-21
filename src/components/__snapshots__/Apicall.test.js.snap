@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Counter Component renders correctly and Match the Snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <button>
+      Api Call
+    </button>
+    <ul />
+  </div>
+</DocumentFragment>
+`;
