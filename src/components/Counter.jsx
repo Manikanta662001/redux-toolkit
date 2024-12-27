@@ -9,7 +9,7 @@ import {
 import { persistor } from "../store/store";
 function Counter() {
   const dispatch = useDispatch();
-  const count = useSelector((state) => state.counterReducer.count);
+  const count = useSelector((state) => state.counterReducer?.count);
   
   const handleReset = ()=>{
     dispatch({type:"RESET"});

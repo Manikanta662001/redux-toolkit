@@ -1,26 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { fetchUsers } from "../thunks/fetchUsersThunk";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   users: [],
   isLoading: false,
   error: "",
 };
-const fetchUsers = createAsyncThunk(
-  "fetchUsers",
-  async (_, { rejectWithValue, getState }) => {
-    console.log('GET:::',getState())
-    try {
-      const apiRes = await fetch("https://jsonplaceholder.typicode.com/users");
-      if (!apiRes.ok) {
-        throw new Error("There is some Error While Fetching");
-      }
-      const result = await apiRes.json();
-      return result;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
+
 const apiSlice = createSlice({
   name: "api",
   initialState,
@@ -39,4 +25,3 @@ const apiSlice = createSlice({
 });
 
 export default apiSlice.reducer;
-export { fetchUsers };

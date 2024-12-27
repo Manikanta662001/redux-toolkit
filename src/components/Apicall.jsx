@@ -1,10 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers } from "../store/slices/apiSlice";
+import { fetchUsers } from "../store/thunks/fetchUsersThunk";
 
 function Apicall() {
   const dispatch = useDispatch();
-  const state = useSelector((state) => console.log(state));
   const { users, error } = useSelector((state) => state.apiReducer);
   return (
     <div>
