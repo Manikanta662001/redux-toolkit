@@ -1,3 +1,4 @@
+import React from 'react';
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { fetchUsers } from "./store/thunks/fetchUsersThunk";
 import counterReducer from "./store/slices/counterSlice";
